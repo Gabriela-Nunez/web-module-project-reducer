@@ -1,4 +1,4 @@
-import { ADD_ONE, APPLY_NUMBER, CHANGE_OPERATION, CLEAR_DISPLAY } from './../actions';
+import { ADD_ONE, APPLY_NUMBER, CHANGE_OPERATION, CLEAR_DISPLAY, MEMORY_PLUS, MEMORY_OPERATION, MEMORY_CLEAR } from './../actions';
 
 export const initialState = {
     total: 0,
@@ -40,7 +40,22 @@ export const initialState = {
             return ({
                 ...state,
                 total: 0
-            })    
+            });
+        case(MEMORY_PLUS):
+            return ({
+                ...state,
+                memory: state.total
+            }); 
+        case(MEMORY_OPERATION):
+            return({
+                ...state,
+                total: calculateResult(state.total, state.memory, state.operation)
+            });
+        case(MEMORY_CLEAR):
+            return({
+                ...state,
+                memory: 0
+            });               
         default:
             return state;
     }
